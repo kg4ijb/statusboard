@@ -59,6 +59,8 @@ grails.exceptionresolver.params.exclude = ['password']
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
 
+grails.plugins.twitterbootstrap.fixtaglib = true
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -71,12 +73,6 @@ environments {
 
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
-
     error 'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
             'org.codehaus.groovy.grails.web.sitemesh',       // layouts
@@ -94,3 +90,5 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.statusboard.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.statusboard.UserRole'
 grails.plugins.springsecurity.authority.className = 'com.statusboard.Role'
+
+def SpringSecurityUtils

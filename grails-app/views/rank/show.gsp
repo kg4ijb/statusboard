@@ -1,3 +1,18 @@
+%{--
+  - Copyright 2005-2013 StationStatusboard.com
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  --}%
+
 <%@ page import="com.statusboard.Rank" %>
 <!DOCTYPE html>
 <html>
@@ -21,36 +36,38 @@
     </div>
 
     <div id="show-rank" class="content scaffold-show" role="main">
-        <h2><g:message code="default.show.label" args="[entityName]"/></h2>
+        <h3><g:message code="default.show.label" args="[entityName]"/></h3>
         <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+            <div class="alert alert-info" role="status">${flash.message}</div>
         </g:if>
-        <ol class="property-list rank">
+        <dl class="dl-horizontal property-list rank">
 
             <g:if test="${rankInstance?.rank}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="rank-label" class="property-label"><g:message code="rank.rank.label"
                                                                             default="Rank"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="rank-label"><g:fieldValue bean="${rankInstance}"
                                                                                             field="rank"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${rankInstance?.description}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="description-label" class="property-label"><g:message code="rank.description.label"
                                                                                    default="Description"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="description-label"><g:fieldValue
                             bean="${rankInstance}"
                             field="description"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
-        </ol>
+        </dl>
         <g:form>
             <fieldset class="buttons">
                 <g:hiddenField name="id" value="${rankInstance?.id}"/>

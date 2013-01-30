@@ -5,6 +5,7 @@ modules = {
 
     bootstrap {
         resource url: 'js/bootstrap.js'
+        dependsOn('jquery')
     }
 
     jqueryui {

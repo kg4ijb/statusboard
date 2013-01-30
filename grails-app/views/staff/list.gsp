@@ -18,9 +18,9 @@
     </div>
 
     <div id="list-staff" class="content scaffold-list" role="main">
-        <h1><g:message code="default.list.label" args="[entityName]"/></h1>
+        <h2><g:message code="default.list.label" args="[entityName]"/></h2>
         <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+            <div class="alert alert-info" role="status">${flash.message}</div>
         </g:if>
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -59,7 +59,7 @@
             </tbody>
         </table>
 
-        <div class="pagination">
+        <div class="pagination pagination-right">
             <g:paginate total="${staffInstanceTotal}"/>
         </div>
     </div>

@@ -15,7 +15,7 @@ grails.project.dependency.resolution = {
         excludes "xml-apis", "commons-digester", "ehcache"
     }
 
-    log "debug" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "info" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
@@ -23,15 +23,9 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-
         mavenLocal()
         mavenCentral()
 
-        // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-        mavenRepo "http://snapshots.repository.codehaus.org"
-        mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
         mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
     }
     dependencies {
@@ -44,24 +38,23 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":joda-time:1.4"
 
-        //compile("joda-time:joda-time-hibernate:1.3") {
-        //    excludes "joda-time", "hibernate"
-        //}
         runtime ":hibernate:$grailsVersion",
                 ":jquery:1.8.3",
-                ':resources:1.2.RC2'
-
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0"
-        //runtime ":cached-resources:1.0"
-        //runtime ":yui-minify-resources:0.1.4"
+                ":jquery-ui:1.8.24",
+                ":resources:1.2.RC2"
 
         build ":tomcat:$grailsVersion"
 
-        compile ':cache:1.0.1' //',
-        ':platform-core:1.0.RC2'
+        compile ':cache:1.0.1'
 
-        runtime ":cache-ehcache:1.0.0", { exclude "cache" }
+        // Spring Security
+        copmpile ':spring-security-core:1.2.7.3'
+        compile ':famfamfam:1.0.1'
+        compile ':spring-security-ui:0.2'
+        compile ':mail:1.0.1'
+        compile ':spring-security-acl:1.1.1'
+        compile ':twitter-bootstrap:2.2.2'
+
 
     }
 }

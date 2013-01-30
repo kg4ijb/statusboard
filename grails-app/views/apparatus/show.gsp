@@ -1,3 +1,18 @@
+%{--
+  - Copyright 2005-2013 StationStatusboard.com
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  --}%
+
 <%@ page import="com.statusboard.Apparatus" %>
 <!DOCTYPE html>
 <html>
@@ -5,6 +20,20 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'apparatus.label', default: 'Apparatus')}"/>
     <title><g:message code="default.show.label" args="[entityName]"/></title>
+
+    <g:javascript>
+        $(document).ready(function (e) {
+            // Check if there's a message
+            if ($('.alert').length) {
+                // If mouse is clicked, moved or a key is pressed
+                $(document).one('click mousemove keypress', function (e) {
+                    // Fade the message away after 500 ms
+                    $('.alert').animate({ opacity: 1.0 }, 500).fadeOut();
+                });
+            }
+        });
+    </g:javascript>
+
 </head>
 
 <body>
@@ -22,95 +51,102 @@
     </div>
 
     <div id="show-apparatus" class="content scaffold-show" role="main">
-        <h2><g:message code="default.show.label" args="[entityName]"/></h2>
+        <h3><g:message code="default.show.label" args="[entityName]"/></h3>
         <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+            <div class="alert alert-info" role="status">${flash.message}</div>
         </g:if>
-        <ol class="property-list apparatus">
+        <dl class="dl-horizontal staff">
 
             <g:if test="${apparatusInstance?.name}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="name-label" class="property-label"><g:message code="apparatus.name.label"
                                                                             default="Name"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${apparatusInstance}"
                                                                                             field="name"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${apparatusInstance?.description}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="description-label" class="property-label"><g:message code="apparatus.description.label"
                                                                                    default="Description"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="description-label"><g:fieldValue
                             bean="${apparatusInstance}" field="description"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${apparatusInstance?.isALS}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="isALS-label" class="property-label"><g:message code="apparatus.isALS.label"
                                                                              default="Has ALS Package"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="isALS-label"><g:formatBoolean
                             boolean="${apparatusInstance?.isALS}" true="Yes" false="No"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${apparatusInstance?.isRescue}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="isRescue-label" class="property-label"><g:message code="apparatus.isRescue.label"
                                                                                 default="Has Rescue Package"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="isRescue-label"><g:formatBoolean
                             boolean="${apparatusInstance?.isRescue}" true="Yes" false="No"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${apparatusInstance?.numSeats}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="numSeats-label" class="property-label"><g:message code="apparatus.numSeats.label"
                                                                                 default="Num Seats"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="numSeats-label"><g:fieldValue
                             bean="${apparatusInstance}" field="numSeats"/></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${apparatusInstance?.note}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="note-label" class="property-label"><g:message code="apparatus.note.label"
                                                                             default="Note"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="note-label"><g:link controller="note" action="show"
                                                                                       id="${apparatusInstance?.note?.id}">${apparatusInstance?.note?.encodeAsHTML()}</g:link></span>
 
-                </li>
+                </dd>
             </g:if>
 
             <g:if test="${apparatusInstance?.status}">
-                <li class="fieldcontain">
+                <dt class="fieldcontain">
                     <span id="status-label" class="property-label"><g:message code="apparatus.status.label"
                                                                               default="Status"/>:</span>
-
+                </dt>
+                <dd>
                     <span class="property-value" aria-labelledby="status-label"><g:link controller="apparatusStatus"
                                                                                         action="show"
                                                                                         id="${apparatusInstance?.status?.id}">${apparatusInstance?.status?.encodeAsHTML()}</g:link></span>
 
-                </li>
+                </dd>
             </g:if>
 
-        </ol>
+        </dl>
         <g:form>
             <fieldset class="buttons">
                 <g:hiddenField name="id" value="${apparatusInstance?.id}"/>
-                <g:link class="btn btn-primary" action="edit" id="${apparatusInstance?.id}"><g:message
+                <g:link type="button" class="btn btn-primary" action="edit" id="${apparatusInstance?.id}"><g:message
                         code="default.button.edit.label" default="Edit"/></g:link>
                 <g:actionSubmit class="btn btn-danger" action="delete"
                                 value="${message(code: 'default.button.delete.label', default: 'Delete')}"
@@ -118,5 +154,6 @@
             </fieldset>
         </g:form>
     </div>
+</div>
 </body>
 </html>

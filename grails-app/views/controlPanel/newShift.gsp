@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <%@ page import="com.statusboard.Seat; com.statusboard.ApparatusStatus; com.statusboard.DutyTime; com.statusboard.Staff; com.statusboard.DutyShift" contentType="text/html;charset=UTF-8" %>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <meta name="layout" content="main"/>
     <title>Statusboard New Shift</title>
 
     <g:javascript>
         $(document).ready(function () {
+            $('#dutyShift.id').focus();
             $("select[multiple]").asmSelect({
                 addItemTarget: 'bottom',
                 animate: true,

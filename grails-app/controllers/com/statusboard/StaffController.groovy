@@ -1,17 +1,35 @@
+/*
+ * Copyright 2005-2013 StationStatusboard.com
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.statusboard
 
 import grails.plugins.springsecurity.Secured
+import grails.plugins.springsecurity.ui.AbstractS2UiController
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.springframework.dao.DataIntegrityViolationException
 
-class StaffController {
+class StaffController extends AbstractS2UiController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def index() {
         redirect(action: "list", params: params)
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [staffInstanceList: Staff.listOrderByLastName(params), staffInstanceTotal: Staff.count()]
@@ -42,6 +60,7 @@ class StaffController {
         redirect(action: "show", id: staffInstance.id)
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def show(Long id) {
         def staffInstance = Staff.get(id)
         if (!staffInstance) {
@@ -71,10 +90,6 @@ class StaffController {
     def update(Long id, Long version) {
         println("${params}")
 
-        params.authorities.each {
-            UserRole.findOrCreateWhere()
-        }
-        UserRole.findOrCreateWhere($ { params.authorities.id })
         def staffInstance = Staff.get(id)
         if (!staffInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'staff.label', default: 'Staff'), id])
@@ -121,17 +136,5 @@ class StaffController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'staff.label', default: 'Staff'), id])
             redirect(action: "show", id: id)
         }
-    }
-
-    protected String lookupUserClassName() {
-        SpringSecurityUtils.securityConfig.userLookup.userDomainClassName
-    }
-
-    protected Class<?> lookupUserClass() {
-        grailsApplication.getDomainClass(lookupUserClassName()).clazz
-    }
-
-    protected Class<?> lookupRoleClass() {
-        grailsApplication.getDomainClass(lookupRoleClassName()).clazz
     }
 }

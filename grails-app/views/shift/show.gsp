@@ -27,6 +27,65 @@
     </g:if>
     <ol class="property-list shift">
 
+        <g:if test="${shiftInstance?.dutyTime}">
+            <li class="fieldcontain">
+                <span id="dutyTime-label" class="property-label"><g:message code="shift.dutyTime.label"
+                                                                            default="Duty Time"/></span>
+
+                <span class="property-value" aria-labelledby="dutyTime-label"><g:link controller="dutyTime"
+                                                                                      action="show"
+                                                                                      id="${shiftInstance?.dutyTime?.id}">${shiftInstance?.dutyTime?.encodeAsHTML()}</g:link></span>
+
+            </li>
+        </g:if>
+
+        <g:if test="${shiftInstance?.dutyShift}">
+            <li class="fieldcontain">
+                <span id="dutyShift-label" class="property-label"><g:message code="shift.dutyShift.label"
+                                                                             default="Duty Shift"/></span>
+
+                <span class="property-value" aria-labelledby="dutyShift-label"><g:link controller="dutyShift"
+                                                                                       action="show"
+                                                                                       id="${shiftInstance?.dutyShift?.id}">${shiftInstance?.dutyShift?.encodeAsHTML()}</g:link></span>
+
+            </li>
+        </g:if>
+
+        <g:if test="${shiftInstance?.dutyOfficer}">
+            <li class="fieldcontain">
+                <span id="dutyOfficer-label" class="property-label"><g:message code="shift.dutyOfficer.label"
+                                                                               default="Duty Officer"/></span>
+
+                <span class="property-value" aria-labelledby="dutyOfficer-label"><g:link controller="staff"
+                                                                                         action="show"
+                                                                                         id="${shiftInstance?.dutyOfficer?.id}">${shiftInstance?.dutyOfficer?.encodeAsHTML()}</g:link></span>
+
+            </li>
+        </g:if>
+
+        <g:if test="${shiftInstance?.stationCommander}">
+            <li class="fieldcontain">
+                <span id="stationCommander-label" class="property-label"><g:message code="shift.stationCommander.label"
+                                                                                    default="Station Commander"/></span>
+
+                <span class="property-value" aria-labelledby="stationCommander-label"><g:link controller="staff"
+                                                                                              action="show"
+                                                                                              id="${shiftInstance?.stationCommander?.id}">${shiftInstance?.stationCommander?.encodeAsHTML()}</g:link></span>
+
+            </li>
+        </g:if>
+
+        <g:if test="${shiftInstance?.notes}">
+            <li class="fieldcontain">
+                <span id="notes-label" class="property-label"><g:message code="shift.notes.label"
+                                                                         default="Notes"/></span>
+
+                <span class="property-value" aria-labelledby="notes-label"><g:link controller="note" action="show"
+                                                                                   id="${shiftInstance?.notes?.id}">${shiftInstance?.notes?.encodeAsHTML()}</g:link></span>
+
+            </li>
+        </g:if>
+
         <g:if test="${shiftInstance?.apparatus}">
             <li class="fieldcontain">
                 <span id="apparatus-label" class="property-label"><g:message code="shift.apparatus.label"
@@ -52,42 +111,6 @@
             </li>
         </g:if>
 
-        <g:if test="${shiftInstance?.dutyOfficer}">
-            <li class="fieldcontain">
-                <span id="dutyOfficer-label" class="property-label"><g:message code="shift.dutyOfficer.label"
-                                                                               default="Duty Officer"/></span>
-
-                <span class="property-value" aria-labelledby="dutyOfficer-label"><g:link controller="staff"
-                                                                                         action="show"
-                                                                                         id="${shiftInstance?.dutyOfficer?.id}">${shiftInstance?.dutyOfficer?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${shiftInstance?.dutyShift}">
-            <li class="fieldcontain">
-                <span id="dutyShift-label" class="property-label"><g:message code="shift.dutyShift.label"
-                                                                             default="Duty Shift"/></span>
-
-                <span class="property-value" aria-labelledby="dutyShift-label"><g:link controller="dutyShift"
-                                                                                       action="show"
-                                                                                       id="${shiftInstance?.dutyShift?.id}">${shiftInstance?.dutyShift?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${shiftInstance?.dutyTime}">
-            <li class="fieldcontain">
-                <span id="dutyTime-label" class="property-label"><g:message code="shift.dutyTime.label"
-                                                                            default="Duty Time"/></span>
-
-                <span class="property-value" aria-labelledby="dutyTime-label"><g:link controller="dutyTime"
-                                                                                      action="show"
-                                                                                      id="${shiftInstance?.dutyTime?.id}">${shiftInstance?.dutyTime?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
         <g:if test="${shiftInstance?.lastUpdated}">
             <li class="fieldcontain">
                 <span id="lastUpdated-label" class="property-label"><g:message code="shift.lastUpdated.label"
@@ -95,29 +118,6 @@
 
                 <span class="property-value" aria-labelledby="lastUpdated-label"><g:fieldValue bean="${shiftInstance}"
                                                                                                field="lastUpdated"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${shiftInstance?.notes}">
-            <li class="fieldcontain">
-                <span id="notes-label" class="property-label"><g:message code="shift.notes.label"
-                                                                         default="Notes"/></span>
-
-                <span class="property-value" aria-labelledby="notes-label"><g:link controller="note" action="show"
-                                                                                   id="${shiftInstance?.notes?.id}">${shiftInstance?.notes?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${shiftInstance?.stationCommander}">
-            <li class="fieldcontain">
-                <span id="stationCommander-label" class="property-label"><g:message code="shift.stationCommander.label"
-                                                                                    default="Station Commander"/></span>
-
-                <span class="property-value" aria-labelledby="stationCommander-label"><g:link controller="staff"
-                                                                                              action="show"
-                                                                                              id="${shiftInstance?.stationCommander?.id}">${shiftInstance?.stationCommander?.encodeAsHTML()}</g:link></span>
 
             </li>
         </g:if>

@@ -28,19 +28,18 @@
         <thead>
         <tr>
 
-            <g:sortableColumn property="dateCreated"
-                              title="${message(code: 'shift.dateCreated.label', default: 'Date Created')}"/>
-
-            <th><g:message code="shift.dutyOfficer.label" default="Duty Officer"/></th>
+            <th><g:message code="shift.dutyTime.label" default="Duty Time"/></th>
 
             <th><g:message code="shift.dutyShift.label" default="Duty Shift"/></th>
 
-            <th><g:message code="shift.dutyTime.label" default="Duty Time"/></th>
+            <th><g:message code="shift.dutyOfficer.label" default="Duty Officer"/></th>
 
-            <g:sortableColumn property="lastUpdated"
-                              title="${message(code: 'shift.lastUpdated.label', default: 'Last Updated')}"/>
+            <th><g:message code="shift.stationCommander.label" default="Station Commander"/></th>
 
             <th><g:message code="shift.notes.label" default="Notes"/></th>
+
+            <g:sortableColumn property="dateCreated"
+                              title="${message(code: 'shift.dateCreated.label', default: 'Date Created')}"/>
 
         </tr>
         </thead>
@@ -49,17 +48,17 @@
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td><g:link action="show"
-                            id="${shiftInstance.id}">${fieldValue(bean: shiftInstance, field: "dateCreated")}</g:link></td>
-
-                <td>${fieldValue(bean: shiftInstance, field: "dutyOfficer")}</td>
+                            id="${shiftInstance.id}">${fieldValue(bean: shiftInstance, field: "dutyTime")}</g:link></td>
 
                 <td>${fieldValue(bean: shiftInstance, field: "dutyShift")}</td>
 
-                <td>${fieldValue(bean: shiftInstance, field: "dutyTime")}</td>
+                <td>${fieldValue(bean: shiftInstance, field: "dutyOfficer")}</td>
 
-                <td>${fieldValue(bean: shiftInstance, field: "lastUpdated")}</td>
+                <td>${fieldValue(bean: shiftInstance, field: "stationCommander")}</td>
 
                 <td>${fieldValue(bean: shiftInstance, field: "notes")}</td>
+
+                <td>${fieldValue(bean: shiftInstance, field: "dateCreated")}</td>
 
             </tr>
         </g:each>
