@@ -45,9 +45,14 @@
         </label>
 
         <div class="controls">
-            <g:select id="dutyShift" name="dutyShift.id" from="${com.statusboard.DutyShift.listOrderByDescription()}"
-                      optionKey="id" required="" value="${staffInstance?.dutyShift?.id}" class="many-to-one"
-                      title="-- Select --"/>
+            <g:select
+                    name="dutyShift.id"
+                    from="${com.statusboard.DutyShift.listOrderByDescription()}"
+                    optionKey="id"
+                    required=""
+                    value="${staffInstance?.dutyShift?.id}"
+                    class="many-to-one"
+                    title="--: Click to Select :--"/>
         </div>
     </div>
 
@@ -90,7 +95,7 @@
                     required=""
                     value="${staffInstance?.emsLevel?.id}"
                     class="many-to-one"
-                    title="--: Click to Add Staff :--"/>
+                    title="--: Click to Selectf :--"/>
         </div>
     </div>
 
@@ -128,7 +133,7 @@
         <div class="controls">
             <g:select id="rank" name="rank.id" from="${com.statusboard.Rank.listOrderByDescription()}" optionKey="id"
                       required="" value="${staffInstance?.rank?.id}" class="many-to-one"
-                      title="--: Click to Add Staff :--"/>
+                      title="--: Click to Select :--"/>
         </div>
     </div>
 </div>
@@ -167,7 +172,7 @@
             <g:select id="authorities" name="authorities.id"
                       from="${com.statusboard.Role.listOrderByAuthority().authority}"
                       optionkey="id" required="" value="${staffInstance?.getAuthorities()?.authority}"
-                      title="--: Click to Add Staff :--"/>
+                      title="--: Click to Select :--"/>
         </div>
     </div>
 
