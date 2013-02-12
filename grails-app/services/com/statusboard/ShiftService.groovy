@@ -15,6 +15,8 @@
 
 
 
+
+
 package com.statusboard
 
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
@@ -31,7 +33,7 @@ class ShiftService {
 
      */
 
-    def setSeatAssignments(GrailsParameterMap grailsParameterMap) {
+    Integer setSeatAssignments(GrailsParameterMap grailsParameterMap) {
         def appKey
         def appValue
         def appInstance = null
@@ -75,6 +77,11 @@ class ShiftService {
                     }
                 }
             }
+        }
+        if (ridingAssignmentInstance) {
+            return ridingAssignmentInstance.id
+        } else {
+            return 0
         }
     }
 /*
