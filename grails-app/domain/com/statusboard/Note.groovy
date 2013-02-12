@@ -13,13 +13,16 @@
  * limitations under the License.
  */
 
+
+
 package com.statusboard
 
+import org.jadira.usertype.dateandtime.joda.PersistentDateTime
 import org.joda.time.DateTime
 
 class Note {
     String title
-    String type
+    //String type
     String text
     Staff creator
 
@@ -27,13 +30,18 @@ class Note {
     DateTime lastUpdated
 
     static transients = ['_deleted']
-    static belongsTo = [apparatus: Apparatus, shift: Shift]
+    //static belongsTo = [apparatus: Apparatus, shift: Shift]
+
+    static mapping = {
+        dateCreated type: PersistentDateTime
+        lastUpdated type: PersistentDateTime
+    }
 
     static constraints = {
-        title(nullable: false, blank: false)
-        text(nullable: false, blank: false)
-        type(nullable: true)
-        creator(nullable: false)
+        title(nullable: true)
+        text(nullable: true)
+        //type(nullable: true)
+        creator(nullable: true)
     }
 
     String toString() {

@@ -13,6 +13,8 @@
   - limitations under the License.
   --}%
 
+
+
 <%@ page import="com.statusboard.Apparatus" %>
 <!DOCTYPE html>
 <html>
@@ -55,6 +57,9 @@
                 <g:sortableColumn property="numSeats"
                                   title="${message(code: 'apparatus.numSeats.label', default: 'Seats')}"/>
 
+                <g:sortableColumn property="status"
+                                  title="${message(code: 'appartus.status.label', default: 'Status')}"/>
+
             </tr>
             </thead>
             <tbody>
@@ -71,6 +76,8 @@
                     <td><g:formatBoolean boolean="${apparatusInstance.isRescue}" true="Yes" false="No"/></td>
 
                     <td>${fieldValue(bean: apparatusInstance, field: "numSeats")}</td>
+
+                    <td>${fieldValue(bean: apparatusInstance, field: 'status')}</td>
 
                 </tr>
             </g:each>

@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+
+
 package com.statusboard
 
 import org.joda.time.DateTime
@@ -20,6 +22,8 @@ import org.springframework.security.access.annotation.Secured
 
 @Secured(['IS_AUTHENTICATED_FULLY'])
 class ControlPanelController {
+    def springSecurityService
+    def shiftService
 
     def index() {
         def notes = "System notes to users would appear here."
@@ -120,10 +124,10 @@ class ControlPanelController {
             redirect(action: "personnel")
             return
         } else {
-            println("DEBUG: NewShift LOSAP has ${losapInstance.count()} records")
-            losapInstance.each {
-                println("DEBUG: newShift losap contains: staffId:${it.staffId}, offDuty:${it.offDuty}")
-            }
+            //println("DEBUG: NewShift LOSAP has ${losapInstance.count()} records")
+            //losapInstance.each {
+            //    println("DEBUG: newShift losap contains: staffId:${it.staffId}, offDuty:${it.offDuty}")
+            //}
 
             /*
                 Okay, I really don't like this query but it works for now
@@ -148,14 +152,14 @@ class ControlPanelController {
 
         if (stationCommandersQuery != null) {
             stationCommanders = Staff.getAll(stationCommandersQuery)
-            println("Station" +
-                    " CommanderQuery : ${stationCommandersQuery}, StationCommander Count: ${stationCommanders.id}")
+            //println("Station" +
+            //        " CommanderQuery : ${stationCommandersQuery}, StationCommander Count: ${stationCommanders.id}")
 
         }
 
         if (dutyOfficersQuery != null) {
             dutyOfficers = Staff.getAll(dutyOfficersQuery)
-            println("DO Query: ${dutyOfficersQuery}")
+            //println("DO Query: ${dutyOfficersQuery}")
         }
 
         def onDutyStaffx = null
@@ -163,12 +167,12 @@ class ControlPanelController {
         if (onDutyStaffQuery != null) {
             onDutyStaffx = Staff.getAll(onDutyStaffQuery)
             List<Staff> onDutyStaffList = onDutyStaffx.sort { it.lastName }
-            println("DEBUG: onDutyStaff: ${onDutyStaffList}")
+            //println("DEBUG: onDutyStaff: ${onDutyStaffList}")
             onDutyStaffList.each { Staff staff ->
                 staffSelectMap.put(staff.id.toInteger(), "${staff.firstName} ${staff.lastName}")
             }
 
-            println("DEBUG: staffSelectMap: ${staffSelectMap}")
+            //println("DEBUG: staffSelectMap: ${staffSelectMap}")
         }
 
         def dutyShiftInstance = DutyShift.getAll()
@@ -186,10 +190,59 @@ class ControlPanelController {
         ]
     }
 
-    def newShiftSave() {
-        params.each {
-            println("${it}")
+
+    def newShiftCreate() {
+
+        println("${params}")
+
+        // who's logged in
+        def principal = springSecurityService.principal
+        String username = principal.username
+        def userInstance = Staff.findWhere(username: username)
+
+
+        def shiftInstance = new Shift(params)
+        def noteInstance = null
+
+        /*
+            TODO: This is really bad coding, not DRY at the very least...
+         */
+
+        if (params.containsKey('shiftNotes')) {
+            noteInstance = new Note(creator: userInstance,
+                    text: params.shiftNotes.id,
+                    title: new DateTime().toString())
+
+            if (!noteInstance.validate()) {
+                noteInstance.errors.each {
+                    println(it)
+                }
+            } else {
+                noteInstance.save(flush: true)
+                shiftInstance.notes = noteInstance
+            }
+
+        } else {
+            noteInstance = new Note(creator: userInstance)
+            shiftInstance.notes = noteInstance
         }
+
+        // Set the apparatus status
+        shiftService.setApparatusStatus(params)
+
+        // Set the seat assignments
+        shiftService.setSeatAssignments(params)
+
+        shiftInstance.save(flush: true)
+
+        return [shiftInstance: shiftInstance]
+    }
+
+
+
+
+    def newShiftSave() {
+
         def shiftInstance = new Shift(params)
         if (!shiftInstance.save(flush: true)) {
             shiftInstance.errors.each {

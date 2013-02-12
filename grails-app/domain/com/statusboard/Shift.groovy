@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
+
+
 package com.statusboard
 
-import org.apache.commons.collections.FactoryUtils
-import org.apache.commons.collections.list.LazyList
 import org.jadira.usertype.dateandtime.joda.PersistentDateTime
 import org.joda.time.DateTime
 
@@ -44,11 +44,11 @@ class Shift {
         dutyShift(nullable: false)
         dutyOfficer(nullable: true)
         stationCommander(nullable: true)
-        notes(nullable: true)
+        notes()
         apparatus(nullable: true)
     }
 
-    def getExpandableNoteList() {
-        return LazyList.decorate(notes, FactoryUtils.instantiateFactory(Note.class))
-    }
+    //def getExpandableNoteList() {
+    //    return LazyList.decorate(notes, FactoryUtils.instantiateFactory(Note.class))
+    //}
 }

@@ -13,11 +13,12 @@
  * limitations under the License.
  */
 
+
+
 package com.statusboard
 
 import grails.plugins.springsecurity.Secured
 import grails.plugins.springsecurity.ui.AbstractS2UiController
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.springframework.dao.DataIntegrityViolationException
 
 class StaffController extends AbstractS2UiController {
@@ -40,20 +41,37 @@ class StaffController extends AbstractS2UiController {
         def staff = lookupUserClass().newInstance(params)
 
         def roles = Role.listOrderByAuthority()
-        roles.each {
-            println it.authority
-        }
-        //[staffInstance: new Staff(params)]
+
         [staff: staff, authorityList: roles]
     }
 
     @Secured(['ROLE_ADMIN'])
     def save() {
-        println("${params}")
+        println("DEBUG: staffController.save: ${params}")
         def staffInstance = new Staff(params)
+
         if (!staffInstance.save(flush: true)) {
+
             render(view: "create", model: [staffInstance: staffInstance])
             return
+        }
+
+        if (params.containsKey('authorities.id')) {
+            def adminRole = Role.findWhere(authority: 'ROLE_ADMIN')
+            def userRole = Role.findWhere(authority: 'ROLE_USER')
+            // remove all roles and rebuild
+            //UserRole.removeAll(staffInstance)
+            List<String> plist = params.list('authorities.id')
+            plist.each {
+                if (it.toString() == adminRole.authority) {
+                    //println("   adding admin role")
+                    UserRole.create(staffInstance, adminRole, true)
+                }
+                if (it.toString() == userRole.authority) {
+                    //println("   adding user role")
+                    UserRole.create(staffInstance, userRole, true)
+                }
+            }
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'staff.label', default: 'Staff'), staffInstance.id])
@@ -69,7 +87,7 @@ class StaffController extends AbstractS2UiController {
             return
         }
 
-        println("DEBUG: staff role: ${staffInstance.getAuthorities().authority}")
+        //println("DEBUG: staff role: ${staffInstance.getAuthorities().authority}")
 
         [staffInstance: staffInstance]
     }
@@ -88,7 +106,6 @@ class StaffController extends AbstractS2UiController {
 
     @Secured(['ROLE_ADMIN'])
     def update(Long id, Long version) {
-        println("${params}")
 
         def staffInstance = Staff.get(id)
         if (!staffInstance) {
@@ -108,6 +125,23 @@ class StaffController extends AbstractS2UiController {
         }
 
         staffInstance.properties = params
+        if (params.containsKey('authorities.id')) {
+            def adminRole = Role.findWhere(authority: 'ROLE_ADMIN')
+            def userRole = Role.findWhere(authority: 'ROLE_USER')
+            // remove all roles and rebuild
+            UserRole.removeAll(staffInstance)
+            List<String> plist = params.list('authorities.id')
+            plist.each {
+                if (it.toString() == adminRole.authority) {
+                    //println("   adding admin role")
+                    UserRole.create(staffInstance, adminRole, true)
+                }
+                if (it.toString() == userRole.authority) {
+                    //println("   adding user role")
+                    UserRole.create(staffInstance, userRole, true)
+                }
+            }
+        }
 
         if (!staffInstance.save(flush: true)) {
             render(view: "edit", model: [staffInstance: staffInstance])
@@ -128,7 +162,9 @@ class StaffController extends AbstractS2UiController {
         }
 
         try {
+            lookupUserRoleClass().removeAll(staffInstance)
             staffInstance.delete(flush: true)
+
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'staff.label', default: 'Staff'), id])
             redirect(action: "list")
         }

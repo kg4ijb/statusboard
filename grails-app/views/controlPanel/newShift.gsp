@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+%{--
+  - Copyright 2005-2013 StationStatusboard.com
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  --}%
+
 <%@ page import="com.statusboard.Seat; com.statusboard.ApparatusStatus; com.statusboard.DutyTime; com.statusboard.Staff; com.statusboard.DutyShift" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -99,7 +114,7 @@
     </div> <!-- /.tabbable -->
 
     <div class="form-actions">
-        <g:actionSubmit class="btn btn-primary" value="Save Changes" action="newShiftSave"/>
+        <g:actionSubmit class="btn btn-primary" value="Save Changes" controller="controlPanel" action="newShiftCreate"/>
     </div>
 
 </g:form>

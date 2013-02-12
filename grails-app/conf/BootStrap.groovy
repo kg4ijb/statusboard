@@ -1,3 +1,18 @@
+/*
+ * Copyright 2005-2013 StationStatusboard.com
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import com.statusboard.*
 import grails.util.Environment
 
@@ -91,27 +106,59 @@ class BootStrap {
             println("   creating some users...")
 
             def user
-            user = new Staff(username: 'soconnor',
+            user = Staff.findOrCreateWhere(username: 'soconnor',
                     lastName: "O'Connor",
                     firstName: 'Sean',
                     password: 'password',
                     rank: Rank.findWhere(rank: 'CPT'),
-                    fdid: '8010',
+                    fdid: '8042',
+                    email: 'soconner@your.domain.com',
                     emsLevel: EmsLevel.findWhere(description: 'EMR'),
                     dutyShift: DutyShift.findWhere(name: 'E'),
-                    enabled: true).save(flush: true)
+                    enabled: true)
+            if (!user.save(flush: true)) {
+                user.errors.each {
+                    println(it)
+                }
+            }
             UserRole.create(user, adminRole, true)
 
-            user = new Staff(username: 'cbyam',
+            user = Staff.findOrCreateWhere(username: 'cbyam',
                     lastName: "Byam",
                     firstName: 'Chuck',
                     password: 'password',
                     rank: Rank.findWhere(rank: 'MFF'),
-                    fdid: '8011',
+                    fdid: '8286',
+                    email: 'cbyam@your.domain.com',
                     emsLevel: EmsLevel.findWhere(description: 'EMT-P'),
                     dutyShift: DutyShift.findWhere(name: 'E'),
-                    enabled: true).save(flush: true)
+                    enabled: true)
+
+            if (!user.save(flush: true)) {
+                user.errors.each {
+                    println(it)
+                }
+            }
             UserRole.create(user, adminRole, true)
+
+            user = Staff.findOrCreateWhere(
+                    username: "ajamerson",
+                    lastName: "Jamerson",
+                    firstName: "Adam",
+                    password: "password",
+                    rank: Rank.findWhere(rank: 'FFIII'),
+                    fdid: '8367',
+                    email: 'ajamerson@your.domain.com',
+                    emsLevel: EmsLevel.findWhere(description: 'EMT-B'),
+                    dutyShift: DutyShift.findWhere(name: 'E'),
+                    enabled: true
+            )
+            if (!user.save(flush: true)) {
+                user.errors.each {
+                    println(it)
+                }
+            }
+            UserRole.create(user, userRole, true)
 
             //println("${s1.name} : ${s1.number}")
             println("Done bootstrapping data...")

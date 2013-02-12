@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+
+
 package com.statusboard
 
 import org.springframework.dao.DataIntegrityViolationException
@@ -31,7 +33,12 @@ class ShiftController {
     }
 
     def create() {
-        [shiftInstance: new Shift(params)]
+        def shiftInstance = new Shift(params)
+
+        if (params.containsKey('shiftNotes.id')) {
+            shiftInstance = new Note(params.shiftNotes.id)
+        }
+        [shiftInstance: shiftInstance]
     }
 
     def save() {
@@ -114,4 +121,6 @@ class ShiftController {
             redirect(action: "show", id: id)
         }
     }
+
+
 }
