@@ -219,7 +219,7 @@ class ControlPanelController {
                 }
             } else {
                 noteInstance.save(flush: true)
-                shiftInstance.notes = noteInstance
+                shiftInstance.note = noteInstance
             }
 
         } else {

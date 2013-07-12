@@ -60,7 +60,9 @@
                     <li><a tabindex="-1"
                            href="${createLink(controller: 'controlPanel', action: 'newShift')}">New Shift</a>
                     </li>
-                    <li><a tabindex="-1" href="#">Edit Current Shift</a></li>
+                    <li><a tabindex="-1"
+                           href="${createLink(controller: 'controlPanel', action: 'editCurrentShift')}">Edit Current Shift</a>
+                    </li>
                 </ul>
             </li>
 
