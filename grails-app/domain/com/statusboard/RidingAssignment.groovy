@@ -18,7 +18,7 @@ package com.statusboard
 import org.jadira.usertype.dateandtime.joda.PersistentDateTime
 import org.joda.time.DateTime
 
-class RidingAssignment {
+class RidingAssignment implements Comparable {
 
     Apparatus apparatus
     Seat seat
@@ -34,5 +34,9 @@ class RidingAssignment {
 
 
     static constraints = {
+    }
+
+    int compareTo(other) {
+        return (other.id)
     }
 }

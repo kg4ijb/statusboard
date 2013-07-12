@@ -11,10 +11,9 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.24.custom.css')}" type="text/css">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.asmselect.css')}" type="text/css">
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 
-    <r:require modules="jquery, jqueryui, jqueryamsselect, bootstrap"/>
+    <r:require modules="jquery, jqueryui, jquerybmsselect, bootstrap"/>
 
     <style type="text/css">
     body {

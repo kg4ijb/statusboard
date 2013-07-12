@@ -35,6 +35,15 @@ class Apparatus {
     boolean isALS = false
     boolean isRescue = false
 
+    SortedSet notes
+
+    static hasMany = [notes: Note]
+
+    static mapping = {
+        notes cascade: "all-delete-orphan"
+        notes column: 'apparatus_note_id', joinTable: false
+    }
+
     static constraints = {
         name(nullable: false, blank: false, unique: true)
         description(nullable: false, blank: false)

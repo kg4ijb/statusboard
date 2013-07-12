@@ -26,17 +26,19 @@ class Shift {
     DutyShift dutyShift
     Staff dutyOfficer
     Staff stationCommander
-    Note notes
+    Note note
 
     DateTime dateCreated
     DateTime lastUpdated
 
-    static hasMany = [apparatus: Apparatus]
+    static hasMany = [apparatus: Apparatus, ridingAssignments: RidingAssignment]
+    SortedSet apparatus
+    SortedSet ridingAssignments
 
     static mapping = {
         dateCreated type: PersistentDateTime
         lastUpdated type: PersistentDateTime
-        notes cascade: "all-delete-orphan"
+        note cascade: "all-delete-orphan"
     }
 
     static constraints = {
@@ -44,8 +46,9 @@ class Shift {
         dutyShift(nullable: false)
         dutyOfficer(nullable: true)
         stationCommander(nullable: true)
-        notes()
+        note(nullable: true)
         apparatus(nullable: true)
+        ridingAssignments(nullable: true)
     }
 
     //def getExpandableNoteList() {

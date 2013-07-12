@@ -248,8 +248,28 @@ class ControlPanelController {
             shiftInstance.errors.each {
                 println("DEBUG: new shift save error: ${it}")
                 render(view: "newShift", model: [shiftInstance: shiftInstance])
-                return
             }
         }
+    }
+
+    def editCurrentShift() {
+        //def currentDateTime = DateTime().now()
+        def query = "select distinct * limit 1"
+
+        // Get the last updated shift.
+        def shiftInstance = Shift.listOrderByDateCreated(max: 1, order: "desc")
+        // Find the most
+        def ridingAssignmentList = RidingAssignment.listOrderByLastUpdated(order: "desc", max: 1)
+        log.error(ridingAssignmentList[0].staff)
+        def search = "Charlottesville"
+        //def baseurl = "http://api.openweathermap.org/data/2.5/find?q=Charlottesville&units=imperial"
+        //def json = baseurl.toURL().text
+        //def data = new JsonSlurper().parseText(json)
+        def url = new URL("http://weather.yahooapis.com/forecastrss?w=12767088").getText()
+        def xml = new XmlSlurper().parseText(url)
+        //println xml.attribute("count")
+        println shiftInstance[0]
+
+        [shiftInstance: shiftInstance[0], ridingAssignmentList: ridingAssignmentList, data: xml]
     }
 }

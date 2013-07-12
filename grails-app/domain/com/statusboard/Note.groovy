@@ -20,7 +20,7 @@ package com.statusboard
 import org.jadira.usertype.dateandtime.joda.PersistentDateTime
 import org.joda.time.DateTime
 
-class Note {
+class Note implements Comparable {
     String title
     //String type
     String text
@@ -30,7 +30,7 @@ class Note {
     DateTime lastUpdated
 
     static transients = ['_deleted']
-    //static belongsTo = [apparatus: Apparatus, shift: Shift]
+    static belongsTo = [Apparatus, Shift]
 
     static mapping = {
         dateCreated type: PersistentDateTime
@@ -46,5 +46,9 @@ class Note {
 
     String toString() {
         return (text)
+    }
+
+    int compareTo(other) {
+        return title.compareTo(other.title)
     }
 }

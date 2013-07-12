@@ -17,26 +17,24 @@
 
 package com.statusboard
 
-import grails.plugins.springsecurity.Secured
-import grails.plugins.springsecurity.ui.AbstractS2UiController
 import org.springframework.dao.DataIntegrityViolationException
 
-class StaffController extends AbstractS2UiController {
+class StaffController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
+    //@Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def index() {
         redirect(action: "list", params: params)
     }
 
-    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
+    //@Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [staffInstanceList: Staff.listOrderByLastName(params), staffInstanceTotal: Staff.count()]
     }
 
-    @Secured(['ROLE_ADMIN'])
+    // @Secured(['ROLE_ADMIN'])
     def create() {
         def staff = lookupUserClass().newInstance(params)
 
@@ -45,7 +43,7 @@ class StaffController extends AbstractS2UiController {
         [staff: staff, authorityList: roles]
     }
 
-    @Secured(['ROLE_ADMIN'])
+    //@Secured(['ROLE_ADMIN'])
     def save() {
         println("DEBUG: staffController.save: ${params}")
         def staffInstance = new Staff(params)
@@ -78,7 +76,7 @@ class StaffController extends AbstractS2UiController {
         redirect(action: "show", id: staffInstance.id)
     }
 
-    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
+    //@Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def show(Long id) {
         def staffInstance = Staff.get(id)
         if (!staffInstance) {
@@ -92,7 +90,7 @@ class StaffController extends AbstractS2UiController {
         [staffInstance: staffInstance]
     }
 
-    @Secured(['ROLE_ADMIN'])
+    //@Secured(['ROLE_ADMIN'])
     def edit(Long id) {
         def staffInstance = Staff.get(id)
         if (!staffInstance) {
@@ -104,7 +102,7 @@ class StaffController extends AbstractS2UiController {
         [staffInstance: staffInstance]
     }
 
-    @Secured(['ROLE_ADMIN'])
+    //@Secured(['ROLE_ADMIN'])
     def update(Long id, Long version) {
 
         def staffInstance = Staff.get(id)
@@ -152,7 +150,7 @@ class StaffController extends AbstractS2UiController {
         redirect(action: "show", id: staffInstance.id)
     }
 
-    @Secured(['ROLE_ADMIN'])
+    //@Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         def staffInstance = Staff.get(id)
         if (!staffInstance) {

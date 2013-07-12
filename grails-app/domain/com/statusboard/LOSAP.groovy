@@ -19,8 +19,8 @@
 
 package com.statusboard
 
-import org.joda.time.*
-import org.jadira.usertype.dateandtime.joda.*
+import org.joda.time.DateTime
+import org.jadira.usertype.dateandtime.joda.PersistentDateTime
 
 
 class LOSAP {

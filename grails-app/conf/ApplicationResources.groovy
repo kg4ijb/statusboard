@@ -4,12 +4,21 @@ modules = {
     }
 
     jqueryui {
-        resource url: 'js/jquery-ui-1.8.24.custom.min.js'
+        resource url: 'js/jquery-ui.js'
         dependsOn('jquery')
     }
 
-    jqueryamsselect {
-        resource url: 'js/jquery.asmselect.js'
+    jquerybmsselect {
+        resource url: 'js/jquery.bsmselect.js'
+        resource url: 'js/jquery.bsmselect.sortable.js'
+        resource url: 'js/jquery.bsmselect.compatability.js'
+        resource url: 'css/jquery.bsmselect.css'
         dependsOn('jqueryui')
+    }
+
+    bootstrap {
+        dependsOn('jquery')
+        resource url: 'js/bootstrap.js'
+        resource url: 'css/bootstrap.css'
     }
 }

@@ -15,11 +15,13 @@
 
     <g:javascript>
         $(document).ready(function () {
-            $("select[multiple]").asmSelect({
+            $("select[multiple]").bsmSelect({
                 addItemTarget: 'bottom',
                 animate: true,
-                highlight: false,
-                sortable: true
+                highlight: true,
+                plugins: [
+                    $.bsmSelect.plugins.sortable({ axis: 'y', opacity: 0.5}, {listSortableClass: 'bsmListSortableCustom'})
+                ]
             });
         });
     </g:javascript>

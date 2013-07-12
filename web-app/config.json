@@ -1,0 +1,40 @@
+{
+    "width": 1000,
+    "title": "Status Board",
+    "rotate": "no",
+    "modules": [
+        {
+            "name": "clock",
+            "class": "mini middle",
+            "width": 200,
+            "height": 80,
+            "text-align": "right",
+            "update": 60,
+            "args": {
+                "timezone": "America/New_York",
+                "format": "HH:mm"
+            }
+        },
+        {
+            "name": "weather",
+            "class": "mini middle",
+            "width": 400,
+            "height": 200,
+            "update": 3600,
+            "args": {
+                "search": "22901"
+            }
+        },
+        {
+            "name": "weatherMap",
+            "class": "mini middle",
+            "width": 400,
+            "height": 200,
+            "update": 60,
+            "args": {
+                "search": "22901"
+            }
+        }
+    ]
+
+}

@@ -17,7 +17,7 @@ grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
-//grails.project.war.file = "target/${appName}-${appVersion}.war"
+grails.project.war.file = "target/${appName}.war"
 
 grails.project.work.dir = "target/$grailsVersion"
 grails.project.plugins.dir = "plugins"
@@ -50,23 +50,18 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":joda-time:1.4"
+        // Spring Security
+        compile ":spring-security-core:1.2.7.3"
 
         runtime ":hibernate:$grailsVersion",
-                ":jquery:1.8.3",
-                ":jquery-ui:1.8.24",
+                ":jquery:1.10.2",
                 ":resources:1.2.RC2"
 
         build ":tomcat:$grailsVersion"
 
         compile ':cache:1.0.1'
 
-        // Spring Security
-        copmpile ':spring-security-core:1.2.7.3'
-        compile ':famfamfam:1.0.1'
-        compile ':spring-security-ui:0.2'
         compile ':mail:1.0.1'
-        compile ':spring-security-acl:1.1.1'
-        compile ':twitter-bootstrap:2.3.0'
 
 
     }
